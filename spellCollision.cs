@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class SpellCollision : MonoBehaviour
 {
-    public string targetObjectName; // Nom du GameObject cible
-
     void OnCollisionEnter(Collision collision)
     {
-        // Vérifie si l'objet de collision est le GameObject cible
-        if (collision.gameObject.name == targetObjectName)
+        // Vérifie si l'objet de collision a le tag "Mur"
+        if (collision.gameObject.CompareTag("Mur"))
         {
-            Debug.Log("Le sort a touché la cible!");
-            // Ajoutez ici toute action à effectuer lors de la collision avec la cible
+            Debug.Log("Le sort a touché le mur!");
+
+            // Récupère le composant WallHealth de l'objet de collision et invoque TakeDamage
+            WallHealth wallHealth = collision.gameObject.GetComponent<WallHealth>();
+            if (wallHealth != null)
+            {
+                wallHealth.TakeDamage(10); // Assurez-vous que cette valeur de dégâts est appropriée pour votre jeu
+            }
+            else
+            {
+                Debug.LogError("WallHealth n'est pas trouvé sur la cible!");
+            }
 
             // Optionnel : Détruire le sort après la collision
             Destroy(gameObject);

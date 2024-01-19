@@ -17,7 +17,7 @@ public class SpellGuidance : MonoBehaviour
         if (target != null)
         {
             Vector3 direction = (target.transform.position - transform.position).normalized;
-            rb.velocity = direction * speed;
+            rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
         }
     }
 }

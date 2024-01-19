@@ -90,7 +90,7 @@ public class EnnemiDeTraqueur : MonoBehaviour
         Vector3 spellDirection = (playerPosition - transform.position).normalized;
         spellRigidbody.AddForce(spellDirection * 10f, ForceMode.VelocityChange);
 
-        float destroyDelay = 2.0f;
+        float destroyDelay = 5.0f;
         Destroy(spell, destroyDelay);
     }
 }

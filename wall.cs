@@ -7,15 +7,17 @@ public class Wall : MonoBehaviour
 
 private void OnCollisionEnter(Collision collision)
 {
-    Debug.Log("Collision détectée avec " + collision.gameObject.name);
+    Debug.Log("Collision detected with " + collision.gameObject.name);
     if (collision.gameObject.CompareTag("Spell"))
     {
-        Debug.Log("Le mur a été touché par un sort.");
-        gameObject.SetActive(false);
-        StartCoroutine(RegenerateWall());
+        Debug.Log("The wall has been hit by a spell.");
+        WallHealth wallHealth = GetComponent<WallHealth>();
+        if(wallHealth != null)
+        {
+            wallHealth.TakeDamage(10);
+        }
     }
 }
-
 
     private IEnumerator RegenerateWall()
     {

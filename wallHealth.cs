@@ -15,9 +15,9 @@ public class WallHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthBar();
     }
-
     void UpdateHealthBar()
     {
         healthBar.fillAmount = (float)currentHealth / maxHealth;
