@@ -1,20 +1,16 @@
 using UnityEngine;
-using System.Collections;
 
 public class Wall : MonoBehaviour
 {
-private void OnCollisionEnter(Collision collision)
-{
-    Debug.Log("Collision detected with " + collision.gameObject.name);
-    if (collision.gameObject.CompareTag("Spell"))
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("The wall has been hit by a spell.");
-        WallHealth wallHealth = GetComponent<WallHealth>();
-        if(wallHealth != null)
+        Debug.Log("Collision detected with " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Spell"))
         {
-            wallHealth.TakeDamage(10);
+            Debug.Log("The wall has been hit by a spell.");
+            
+            // Désactive le GameObject mur
+            gameObject.SetActive(false);
         }
     }
-}
-
 }
