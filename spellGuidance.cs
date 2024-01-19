@@ -20,13 +20,13 @@ public class SpellGuidance : MonoBehaviour
     }
 
 
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     // Vérifiez si l'objet de collision a le tag "Player"
-    //     if (collision.gameObject.CompareTag("Player"))
-    //     {
-    //         // Gérez la collision avec le joueur ici (par exemple, appliquer des dégâts)
-    //         Destroy(gameObject, 50f); // Détruire le sort après la collision
-    //     }
-    // }
+    void OnCollisionEnter(Collision collision)
+    {
+        // Vérifiez si l'objet de collision a le tag "Player"
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Gérez la collision avec le joueur ici (par exemple, appliquer des dégâts)
+            Destroy(gameObject, 5000f); // Détruire le sort après la collision
+        }
+    }
 }
