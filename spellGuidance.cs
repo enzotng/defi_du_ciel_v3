@@ -23,8 +23,8 @@ public class SpellGuidance : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Assurez-vous que le sort réagit uniquement aux collisions avec le joueur
-        if (collision.gameObject.layer == GameObject.FindGameObjectWithTag("Player")) ;
+        // Vérifiez si l'objet de collision a le tag "Player"
+        if (collision.gameObject.CompareTag("Player"))
         {
             // Gérez la collision avec le joueur ici (par exemple, appliquer des dégâts)
             Destroy(gameObject); // Détruire le sort après la collision
