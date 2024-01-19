@@ -10,14 +10,17 @@ public class WallHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        UpdateHealthBar(); // Initialise la barre de santé visuelle.
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log("Mur touché : santé actuelle = " + currentHealth); // Ajoute un log pour la santé actuelle.
         UpdateHealthBar();
     }
+
     void UpdateHealthBar()
     {
         healthBar.fillAmount = (float)currentHealth / maxHealth;

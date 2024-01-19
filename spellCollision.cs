@@ -10,18 +10,17 @@ public class SpellCollision : MonoBehaviour
             Debug.Log("Le sort a touché le mur!");
 
             // Récupère le composant WallHealth de l'objet de collision et invoque TakeDamage
-            WallHealth wallHealth = collision.gameObject.GetComponent<WallHealth>();
-            if (wallHealth != null)
-            {
-                wallHealth.TakeDamage(10); // Assurez-vous que cette valeur de dégâts est appropriée pour votre jeu
-            }
-            else
-            {
-                Debug.LogError("WallHealth n'est pas trouvé sur la cible!");
-            }
+            // WallHealth wallHealth = collision.gameObject.GetComponent<WallHealth>();
+            // if (wallHealth != null)
+            // {
+            //     wallHealth.TakeDamage(10); // Assurez-vous que cette valeur de dégâts est appropriée pour votre jeu
+            // }
+            // else
+            // {
+            //     Debug.LogError("WallHealth n'est pas trouvé sur la cible!");
+            // }
 
-            // Optionnel : Détruire le sort après la collision
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
