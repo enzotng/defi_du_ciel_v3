@@ -15,11 +15,22 @@ public class EnnemiDeTraqueur : MonoBehaviour
     private float lerpTimer = 0.0f;
     private float spellTimer;
 
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         ChangeDirection();
         spellTimer = Random.Range(minSpellDelay, maxSpellDelay);
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = deathSound;
+            audioSource.playOnAwake = false;
+        }
     }
 
     void Update()
@@ -53,7 +64,7 @@ public class EnnemiDeTraqueur : MonoBehaviour
     void MoveAndTilt()
     {
         Vector3 newPosition = transform.position + randomDirection * moveSpeed * Time.deltaTime;
-        newPosition.y = Mathf.Max(newPosition.y, 11f); // S'assurer que la hauteur ne descend pas en dessous de 11
+        newPosition.y = Mathf.Max(newPosition.y, 11f);
         transform.position = newPosition;
 
         Quaternion targetRotation = Quaternion.LookRotation(randomDirection);
@@ -69,10 +80,28 @@ public class EnnemiDeTraqueur : MonoBehaviour
             CastSpellAtPlayer();
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-
-            // Modifiez cette formule si nécessaire pour réduire le délai en fonction de la proximité
             float delay = Mathf.Lerp(minSpellDelay / 2f, maxSpellDelay / 2f, distanceToPlayer / 8f);
             spellTimer = Mathf.Clamp(delay, minSpellDelay, maxSpellDelay);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Spell"))
+        {
+            Debug.Log("Détraqueur touché par un sort!");
+
+            GameObject murDestruction = GameObject.Find("MurDestruction");
+            if (murDestruction != null)
+            {
+                murDestruction.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("GameObject 'MurDestruction' non trouvé dans la scène!");
+            }
+
+            Destroy(gameObject);
         }
     }
 
