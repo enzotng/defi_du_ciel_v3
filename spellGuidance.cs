@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class SpellGuidance : MonoBehaviour
 {
-    public float speed = 10f;
-    private Rigidbody rb;
+    public float speed = 100f;
     private GameObject target;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         target = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -17,9 +15,10 @@ public class SpellGuidance : MonoBehaviour
         if (target != null)
         {
             Vector3 direction = (target.transform.position - transform.position).normalized;
-            rb.velocity = direction * speed;
+            transform.Translate(direction * speed * Time.deltaTime, Space.World);
         }
     }
+
 
     // void OnCollisionEnter(Collision collision)
     // {
