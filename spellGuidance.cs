@@ -22,9 +22,11 @@ public class SpellGuidance : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("COLLISION");
         // Vérifiez si l'objet de collision a le tag "Player"
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("COLLISION AVEC LE JOUEUR");
             // Gérez la collision avec le joueur ici (par exemple, appliquer des dégâts)
             Destroy(gameObject, 5000f); // Détruire le sort après la collision
         }
