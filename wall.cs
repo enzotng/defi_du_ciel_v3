@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Wall : MonoBehaviour
 {
-    public float regenDelay = 5.0f;
-
 private void OnCollisionEnter(Collision collision)
 {
     Debug.Log("Collision detected with " + collision.gameObject.name);
@@ -19,9 +17,4 @@ private void OnCollisionEnter(Collision collision)
     }
 }
 
-    private IEnumerator RegenerateWall()
-    {
-        yield return new WaitForSeconds(regenDelay);
-        gameObject.SetActive(true);
-    }
 }
