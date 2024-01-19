@@ -13,7 +13,7 @@ public class EnnemiDeTraqueur : MonoBehaviour
     private float timer;
     private float lerpTime = 1.0f;
     private float lerpTimer = 0.0f;
-    private float spellTimer;
+    private float spellTimer
 
     void Start()
     {
@@ -31,22 +31,55 @@ public class EnnemiDeTraqueur : MonoBehaviour
 
     void AdjustSpeedAndDirection()
     {
-        // Votre logique existante pour ajuster la vitesse et la direction
+        moveSpeed = Random.Range(0.5f, 2.0f);
+        changeDirectionInterval = Random.Range(3f, 7f);
+
+        if (lerpTimer < lerpTime)
+        {
+            randomDirection = Vector3.Lerp(randomDirection, targetDirection, lerpTimer / lerpTime);
+            lerpTimer += Time.deltaTime;
+        }
+
+        if (timer >= changeDirectionInterval)
+        {
+            ChangeDirection();
+            timer = 0.0f;
+            lerpTimer = 0.0f;
+        }
+
+        timer += Time.deltaTime;
     }
 
     void MoveAndTilt()
     {
-        // Votre logique existante pour le mouvement et l'inclinaison
+        Vector3 newPosition = transform.position + randomDirection * moveSpeed * Time.deltaTime;
+        newPosition.y = Mathf.Max(newPosition.y, 11f); // S'assurer que la hauteur ne descend pas en dessous de 11
+        transform.position = newPosition;
+
+        Quaternion targetRotation = Quaternion.LookRotation(randomDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lerpTime * Time.deltaTime);
     }
+
 
     void CastSpellIfNeeded()
     {
-        // Votre logique existante pour lancer des sorts si nécessaire
+        spellTimer -= Time.deltaTime;
+        if (spellTimer <= 0)
+        {
+            CastSpellAtPlayer();
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+
+            // Modifiez cette formule si nécessaire pour réduire le délai en fonction de la proximité
+            float delay = Mathf.Lerp(minSpellDelay / 2f, maxSpellDelay / 2f, distanceToPlayer / 8f);
+            spellTimer = Mathf.Clamp(delay, minSpellDelay, maxSpellDelay);
+        }
     }
 
     void ChangeDirection()
     {
-        // Votre logique existante pour changer de direction
+        targetDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        targetDirection.Normalize();
     }
 
     void CastSpellAtPlayer()
