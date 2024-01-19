@@ -27,7 +27,7 @@ public class SpellGuidance : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Gérez la collision avec le joueur ici (par exemple, appliquer des dégâts)
-            Destroy(gameObject); // Détruire le sort après la collision
+            Destroy(gameObject, 50f); // Détruire le sort après la collision
         }
     }
 }
