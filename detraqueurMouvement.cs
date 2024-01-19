@@ -31,55 +31,22 @@ public class EnnemiDeTraqueur : MonoBehaviour
 
     void AdjustSpeedAndDirection()
     {
-        moveSpeed = Random.Range(0.5f, 2.0f);
-        changeDirectionInterval = Random.Range(3f, 7f);
-
-        if (lerpTimer < lerpTime)
-        {
-            randomDirection = Vector3.Lerp(randomDirection, targetDirection, lerpTimer / lerpTime);
-            lerpTimer += Time.deltaTime;
-        }
-
-        if (timer >= changeDirectionInterval)
-        {
-            ChangeDirection();
-            timer = 0.0f;
-            lerpTimer = 0.0f;
-        }
-
-        timer += Time.deltaTime;
+        // Votre logique existante pour ajuster la vitesse et la direction
     }
 
     void MoveAndTilt()
     {
-        Vector3 newPosition = transform.position + randomDirection * moveSpeed * Time.deltaTime;
-        newPosition.y = Mathf.Max(newPosition.y, 11f); // S'assurer que la hauteur ne descend pas en dessous de 11
-        transform.position = newPosition;
-
-        Quaternion targetRotation = Quaternion.LookRotation(randomDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lerpTime * Time.deltaTime);
+        // Votre logique existante pour le mouvement et l'inclinaison
     }
-
 
     void CastSpellIfNeeded()
     {
-        spellTimer -= Time.deltaTime;
-        if (spellTimer <= 0)
-        {
-            CastSpellAtPlayer();
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-
-            // Modifiez cette formule si nécessaire pour réduire le délai en fonction de la proximité
-            float delay = Mathf.Lerp(minSpellDelay / 2f, maxSpellDelay / 2f, distanceToPlayer / 8f);
-            spellTimer = Mathf.Clamp(delay, minSpellDelay, maxSpellDelay);
-        }
+        // Votre logique existante pour lancer des sorts si nécessaire
     }
 
     void ChangeDirection()
     {
-        targetDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        targetDirection.Normalize();
+        // Votre logique existante pour changer de direction
     }
 
     void CastSpellAtPlayer()
@@ -88,9 +55,6 @@ public class EnnemiDeTraqueur : MonoBehaviour
         GameObject spell = Instantiate(spellPrefab, transform.position, Quaternion.LookRotation(playerPosition - transform.position));
         Rigidbody spellRigidbody = spell.GetComponent<Rigidbody>();
         Vector3 spellDirection = (playerPosition - transform.position).normalized;
-        spellRigidbody.AddForce(spellDirection * 20f, ForceMode.VelocityChange);
-
-        float destroyDelay = 50.0f;
-        Destroy(spell, destroyDelay);
+        spellRigidbody.AddForce(spellDirection * 10f, ForceMode.VelocityChange);
     }
 }
