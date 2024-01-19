@@ -88,9 +88,9 @@ public class EnnemiDeTraqueur : MonoBehaviour
         GameObject spell = Instantiate(spellPrefab, transform.position, Quaternion.LookRotation(playerPosition - transform.position));
         Rigidbody spellRigidbody = spell.GetComponent<Rigidbody>();
         Vector3 spellDirection = (playerPosition - transform.position).normalized;
-        spellRigidbody.AddForce(spellDirection * 10f, ForceMode.VelocityChange);
+        spellRigidbody.AddForce(spellDirection * 20f, ForceMode.VelocityChange);
 
-        float destroyDelay = 5.0f;
+        float destroyDelay = 50.0f;
         Destroy(spell, destroyDelay);
     }
 }
