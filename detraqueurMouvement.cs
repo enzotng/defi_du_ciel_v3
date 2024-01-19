@@ -13,7 +13,7 @@ public class EnnemiDeTraqueur : MonoBehaviour
     private float timer;
     private float lerpTime = 1.0f;
     private float lerpTimer = 0.0f;
-    private float spellTimer
+    private float spellTimer;
 
     void Start()
     {
