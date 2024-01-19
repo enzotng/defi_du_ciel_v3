@@ -88,6 +88,6 @@ public class EnnemiDeTraqueur : MonoBehaviour
         GameObject spell = Instantiate(spellPrefab, transform.position, Quaternion.LookRotation(playerPosition - transform.position));
         Rigidbody spellRigidbody = spell.GetComponent<Rigidbody>();
         Vector3 spellDirection = (playerPosition - transform.position).normalized;
-        spellRigidbody.AddForce(spellDirection * 2000f, ForceMode.VelocityChange);
+        spellRigidbody.AddForce(spellDirection * 20f, ForceMode.VelocityChange);
     }
 }
